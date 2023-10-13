@@ -43,6 +43,10 @@ app.use(require('./src/middlewares/findSearchSortPage'))
         })
     })
 
+    // /departments
+    app.use('/departments',require('./src/routes/department.router'))
+    // /personnels
+    app.use('/personnels',require('./src/routes/department.router'))
  
 
 /* ------------------------------------------------------- */
