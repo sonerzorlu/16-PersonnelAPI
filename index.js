@@ -42,23 +42,14 @@ app.use(require('./src/middlewares/findSearchSortPage'))
 
 // Login/Logout Control Middleware
 app.use(async (req, res, next) => {
+const Personnel = require('./src/models/personnel.model')
+req.isLogin = false
+if(req.session?.id){
 
-    const Personnel = require('./src/models/personnel.model')
-
-    req.isLogin = false
-
-    if (req.session?.id) {
-
-        const user = await Personnel.findOne({ _id: req.session.id })
-
-        // if (user && user.password == req.session.password) {
-        //     req.isLogin = true
-        // }
-        req.isLogin = user && user.password == req.session.password
-    }
-    console.log('isLogin: ', req.isLogin)
-
-    next()
+    const user = await Personnels.findOne({_id: req.session.id})
+    req.isLogin = user.password == req.session.password
+}
+next()
 })
 
 /* ------------------------------------------------------- */
