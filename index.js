@@ -7,39 +7,32 @@
     $ npm i cookie-session
     $ npm i jsonwebtoken
 */
-
 const express = require('express')
 const app = express()
-
 /* ------------------------------------------------------- */
-// Required Modules:
-
-// envVariables to process.env:
 require('dotenv').config()
 const PORT = process.env?.PORT || 8000
 
-// asyncErrors to errorHandler:
+//asyncError to errorHandler
 require('express-async-errors')
-
 /* ------------------------------------------------------- */
-// Configrations:
+//!Configrations
 
-// Connect to DB:
-const { dbConnection } = require('./src/configs/dbConnection')
+//Connect to the DB
+const {dbConnection } = require('./src/configs/dbConnection')
 dbConnection()
-
 /* ------------------------------------------------------- */
-// Middlewares:
+//!MIDDLEWARES
+
 
 // Accept JSON:
 app.use(express.json())
-
-// SessionsCookies:
-app.use(require('cookie-session')({ secret: process.env.SECRET_KEY }))
-
-// res.getModelList():
+//Sessionscookies:
+app.use(require('cookie-session')({secret: process.env.SECRET_KEY}))
+//res.getModelList():
 app.use(require('./src/middlewares/findSearchSortPage'))
 
+<<<<<<< HEAD
 // Login/Logout Control Middleware
 app.use(async (req, res, next) => {
 const Personnel = require('./src/models/personnel.model')
@@ -52,25 +45,29 @@ if(req.session?.id){
 next()
 })
 
+=======
+>>>>>>> 8c3e59ec0686b740b122966e937928a5f55664eb
 /* ------------------------------------------------------- */
-// Routes:
+//!ROUTES
 
-// HomePath:
-app.all('/', (req, res) => {
-    res.send({
-        error: false,
-        message: 'Welcome to PERSONNEL API',
-        session: req.session,
-        isLogin: req.isLogin
+//HomePath'/':
+    app.all('/',(req,res)=>{
+        res.send({
+            error:false,
+            message: 'Welcome to PERSONAL API'
+        })
     })
-})
 
-// /departments
-app.use('/departments', require('./src/routes/department.router'))
-// /personnels
-app.use('/personnels', require('./src/routes/personnel.router'))
+    // /departments
+    app.use('/departments',require('./src/routes/department.router'))
+    // /personnels
+    app.use('/personnels',require('./src/routes/department.router'))
+ 
 
 /* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+
 
 // errorHandler:
 app.use(require('./src/middlewares/errorHandler'))
